@@ -1,4 +1,4 @@
-package com.br.luisvanique.academia.domain.dto;
+package com.br.luisvanique.academia.domain.aluno.dto;
 
 import com.br.luisvanique.academia.domain.Endereco;
 

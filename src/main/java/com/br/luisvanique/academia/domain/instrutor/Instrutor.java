@@ -1,4 +1,4 @@
-package com.br.luisvanique.academia.domain;
+package com.br.luisvanique.academia.domain.instrutor;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

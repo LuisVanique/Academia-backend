@@ -1,8 +1,10 @@
-package com.br.luisvanique.academia.domain;
+package com.br.luisvanique.academia.domain.mensalidade;
 
 import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.br.luisvanique.academia.domain.aluno.Aluno;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

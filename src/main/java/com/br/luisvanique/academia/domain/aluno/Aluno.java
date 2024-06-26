@@ -1,10 +1,12 @@
-package com.br.luisvanique.academia.domain;
+package com.br.luisvanique.academia.domain.aluno;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-import com.br.luisvanique.academia.domain.dto.AlunoDTO;
+import com.br.luisvanique.academia.domain.Endereco;
+import com.br.luisvanique.academia.domain.aluno.dto.CreateAlunoDTO;
+import com.br.luisvanique.academia.domain.mensalidade.Mensalidade;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -42,7 +44,7 @@ public class Aluno implements Serializable{
 	@Column(name = "CPF", unique = true)
 	private String cpf;
 	
-	@Column(name = "TELEFONE")
+	@Column(name = "TELEFONE", unique = true)
 	private String telefone;
 	
 	@Column(name = "DATA_CRIACAO")
@@ -59,7 +61,7 @@ public class Aluno implements Serializable{
 		this.dataCriacao = LocalDate.now();
 	}
 	
-	public Aluno(AlunoDTO dto) {
+	public Aluno(CreateAlunoDTO dto) {
 		this.nome = dto.nome();
 		this.endereco = dto.endereco().toEndereco();
 		this.cpf = dto.cpf();

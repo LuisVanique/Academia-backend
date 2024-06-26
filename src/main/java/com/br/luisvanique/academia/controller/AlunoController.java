@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.br.luisvanique.academia.domain.Aluno;
-import com.br.luisvanique.academia.domain.dto.AlunoDTO;
+import com.br.luisvanique.academia.domain.aluno.Aluno;
+import com.br.luisvanique.academia.domain.aluno.dto.AlunoDTO;
+import com.br.luisvanique.academia.domain.aluno.dto.CreateAlunoDTO;
 import com.br.luisvanique.academia.service.AlunoService;
 
 import jakarta.validation.Valid;
@@ -33,7 +34,7 @@ public class AlunoController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<AlunoDTO> create(@RequestBody @Valid AlunoDTO dto){
+	public ResponseEntity<AlunoDTO> create(@RequestBody @Valid CreateAlunoDTO dto){
 		Aluno aluno = alunoService.create(dto);
 		AlunoDTO dtoAluno = new AlunoDTO(aluno);
 		
@@ -41,6 +42,10 @@ public class AlunoController {
 				path("/{id}").buildAndExpand(dtoAluno.id()).toUri();
 		return ResponseEntity.created(uri).body(dtoAluno);
 	}
+	
+	//TODO: END-POINT UPDATE
+	//TODO: END-POINT DELETE
+	//TODO: END-POINT FINDBYID
 	
 	
 }

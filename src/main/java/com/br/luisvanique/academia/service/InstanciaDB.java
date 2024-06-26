@@ -7,11 +7,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.br.luisvanique.academia.domain.Aluno;
 import com.br.luisvanique.academia.domain.Endereco;
-import com.br.luisvanique.academia.domain.Instrutor;
-import com.br.luisvanique.academia.domain.Mensalidade;
+import com.br.luisvanique.academia.domain.aluno.Aluno;
 import com.br.luisvanique.academia.domain.enums.StatusPagamento;
+import com.br.luisvanique.academia.domain.instrutor.Instrutor;
+import com.br.luisvanique.academia.domain.mensalidade.Mensalidade;
 import com.br.luisvanique.academia.repository.AlunoRepository;
 import com.br.luisvanique.academia.repository.InstrutorRepository;
 import com.br.luisvanique.academia.repository.MensalidadeRepository;
@@ -27,7 +27,6 @@ public class InstanciaDB implements CommandLineRunner {
     @Autowired
     private BCryptPasswordEncoder encoder;
 
-    @Autowired
     public InstanciaDB(AlunoRepository alunoRepository, MensalidadeRepository mensalidadeRepository,
     		InstrutorRepository instrutorRepository) {
         this.alunoRepository = alunoRepository;
