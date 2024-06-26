@@ -46,7 +46,7 @@ public class InstanciaDB implements CommandLineRunner {
     	
         Aluno aluno1 = new Aluno("Luis", endereco, "51914695852", "11952925758");
         alunoRepository.save(aluno1);
-
+        
         Aluno aluno2 = new Aluno("Vanessa", endereco, "22502104890", "11985182653");
         alunoRepository.save(aluno2);
 

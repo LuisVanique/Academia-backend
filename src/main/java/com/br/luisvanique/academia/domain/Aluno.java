@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.br.luisvanique.academia.domain.dto.AlunoDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -18,16 +20,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-@Getter
 @Setter
+@Getter
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @NoArgsConstructor
 public class Aluno implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -39,7 +38,8 @@ public class Aluno implements Serializable{
 	private String nome;
 	@Embedded
 	private Endereco endereco;
-	@Column(name = "CPF")
+
+	@Column(name = "CPF", unique = true)
 	private String cpf;
 	
 	@Column(name = "TELEFONE")
@@ -56,6 +56,14 @@ public class Aluno implements Serializable{
 		this.endereco = endereco;
 		this.cpf = cpf;
 		this.telefone = telefone;
+		this.dataCriacao = LocalDate.now();
+	}
+	
+	public Aluno(AlunoDTO dto) {
+		this.nome = dto.nome();
+		this.endereco = dto.endereco().toEndereco();
+		this.cpf = dto.cpf();
+		this.telefone = dto.telefone();
 		this.dataCriacao = LocalDate.now();
 	}
 }

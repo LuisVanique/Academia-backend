@@ -2,6 +2,8 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\Academia-backend"/>
+			<item value="C:\AcademiaSpring\Academia-backend"/>
 			<item value="C:\academia"/>
 		</list>
 		<list key="projectNameTemplate">

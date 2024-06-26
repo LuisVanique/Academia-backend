@@ -2,6 +2,8 @@ package com.br.luisvanique.academia.domain;
 
 import java.time.LocalDate;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -29,6 +31,7 @@ public class Mensalidade {
 	
 	
 	@Column(name = "DATA_VENCIMENTO")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataVencimento;
 	
 	@Column(name= "VALOR")
