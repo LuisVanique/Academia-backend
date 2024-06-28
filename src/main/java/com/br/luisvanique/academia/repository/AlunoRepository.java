@@ -20,4 +20,5 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long>{
 	Optional<Aluno> findByTelefone(@NotBlank String telefone);
 	
 	Optional<Aluno> findByCpf(@NotBlank String cpf);
+	
 }

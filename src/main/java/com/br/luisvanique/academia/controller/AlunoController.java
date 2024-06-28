@@ -1,9 +1,11 @@
 package com.br.luisvanique.academia.controller;
 
 import java.net.URI;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,6 @@ import com.br.luisvanique.academia.domain.aluno.dto.AlunoDTO;
 import com.br.luisvanique.academia.domain.aluno.dto.CreateAlunoDTO;
 import com.br.luisvanique.academia.domain.aluno.dto.UpdateAlunoDTO;
 import com.br.luisvanique.academia.service.AlunoService;
-
 import jakarta.validation.Valid;
 
 @RestController
@@ -31,9 +32,9 @@ public class AlunoController {
 	private AlunoService alunoService;
 
 	@GetMapping
-	public ResponseEntity<List<AlunoDTO>> findAll(){
-		List<Aluno> alunos = alunoService.findAll();
-		List<AlunoDTO> alunosDTO = alunos.stream().map(x -> new AlunoDTO(x)).toList();
+	public ResponseEntity<Page<AlunoDTO>> findAll(@PageableDefault Pageable pageable){
+		Page<Aluno> alunos = alunoService.findAll(pageable);
+		Page<AlunoDTO> alunosDTO = alunos.map(AlunoDTO::new);
 		return ResponseEntity.ok().body(alunosDTO);
 	}
 	
@@ -65,6 +66,13 @@ public class AlunoController {
 	public ResponseEntity<AlunoDTO> delete(@PathVariable Long id){
 		alunoService.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@PutMapping("/reativar/{id}")
+	public ResponseEntity<AlunoDTO> reativarAluno(@PathVariable Long id){
+		alunoService.reativarAluno(id);
+		return ResponseEntity.noContent().build();
+		
 	}
 	
 	
