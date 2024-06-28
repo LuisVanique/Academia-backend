@@ -16,12 +16,14 @@ public record AlunoDTO(
 		
 		String telefone,
 		
-		LocalDate dataCriacao
+		LocalDate dataCriacao,
+		
+		String ativo
 		) {
 	
 	public AlunoDTO(Aluno aluno) {
 		this(aluno.getId(), aluno.getNome(), new EnderecoDTO(aluno.getEndereco()),
-				aluno.getCpf(), aluno.getTelefone(), aluno.getDataCriacao());
+				aluno.getCpf(), aluno.getTelefone(), aluno.getDataCriacao(), aluno.getAtivo());
 	}
 
 

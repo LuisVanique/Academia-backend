@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.br.luisvanique.academia.domain.aluno.Aluno;
+import com.br.luisvanique.academia.domain.enums.StatusPagamento;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -40,6 +41,6 @@ public class Mensalidade {
 	private Double valor;
 	
 	@Column(name = "STATUS")
-	private String status;
+	private Integer status;
 
 }

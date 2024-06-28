@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.br.luisvanique.academia.controller.dto.ErrorDTO;
 import com.br.luisvanique.academia.controller.dto.MessageErrorDTO;
 import com.br.luisvanique.academia.domain.aluno.exception.CpfJaRegistradoException;
+import com.br.luisvanique.academia.domain.aluno.exception.ObjectNotFoundException;
 import com.br.luisvanique.academia.domain.aluno.exception.TelefoneJaRegistradoException;
 
 @RestControllerAdvice
@@ -39,6 +40,12 @@ public class ControllerAdviceHandler {
 	public ResponseEntity<MessageErrorDTO> handleTelefoneCadastrado(TelefoneJaRegistradoException ex){
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).contentType(MediaType.APPLICATION_JSON)
 				.body(new MessageErrorDTO(ex.getMessage()));
+	}
+	
+	@ExceptionHandler(ObjectNotFoundException.class)
+	public ResponseEntity<MessageErrorDTO> handleObjectNotFoundException(ObjectNotFoundException ex){
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).contentType(MediaType.APPLICATION_JSON).
+				body(new MessageErrorDTO(ex.getMessage()));
 	}
 	
 }

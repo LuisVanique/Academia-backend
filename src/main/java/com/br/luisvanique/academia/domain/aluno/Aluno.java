@@ -50,6 +50,9 @@ public class Aluno implements Serializable{
 	@Column(name = "DATA_CRIACAO")
 	private LocalDate dataCriacao;
 	
+	@Column(name = "ATIVO")
+	private String ativo;
+	
 	@OneToMany(mappedBy = "aluno")
 	private List<Mensalidade> mensalidades;
 	
@@ -59,6 +62,7 @@ public class Aluno implements Serializable{
 		this.cpf = cpf;
 		this.telefone = telefone;
 		this.dataCriacao = LocalDate.now();
+		this.ativo = "S";
 	}
 	
 	public Aluno(CreateAlunoDTO dto) {
@@ -67,5 +71,6 @@ public class Aluno implements Serializable{
 		this.cpf = dto.cpf();
 		this.telefone = dto.telefone();
 		this.dataCriacao = LocalDate.now();
+		this.ativo = "S";
 	}
 }
