@@ -23,25 +23,25 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/mensalidade")
 public class MensalidadesController {
-	
+
 	@Autowired
 	private MensalidadeService mensalidadeService;
-	
-	
+
 	@GetMapping
-	public ResponseEntity<List<MensalidadeDTO>> findByFiltroStatus(@RequestParam(required = false) Integer status){
+	public ResponseEntity<List<MensalidadeDTO>> findByFiltroStatus(@RequestParam(required = false) Integer status) {
+
 		List<Mensalidade> mensalidades = mensalidadeService.findByFiltroStatus(status);
-		List<MensalidadeDTO> mensalidadesDTO = 
-				mensalidades.stream().map(x -> new MensalidadeDTO(x)).toList();
+		List<MensalidadeDTO> mensalidadesDTO = mensalidades.stream().map(x -> new MensalidadeDTO(x)).toList();
+
 		return ResponseEntity.ok().body(mensalidadesDTO);
 	}
-	
+
 	@PutMapping("/{id}")
 	@Transactional
-	public ResponseEntity<MensalidadeDTO> aprovarPagamento(@PathVariable Long id, 
-			@RequestBody @Valid AprovarPagamentoDTO status){
+	public ResponseEntity<MensalidadeDTO> aprovarPagamento(@PathVariable Long id,
+			@RequestBody @Valid AprovarPagamentoDTO status) {
 		mensalidadeService.aprovarPagamento(id, status);
 		return ResponseEntity.ok().build();
 	}
-	
+
 }
