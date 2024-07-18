@@ -50,10 +50,10 @@ public class InstanciaDB implements CommandLineRunner {
     	endereco.setEstado("São Paulo");
     	endereco.setUf("SP");
     	
-        Aluno aluno1 = new Aluno("Luis", endereco, "51914695852", "11952925758");
+        Aluno aluno1 = new Aluno("Luis", endereco, "51914695852", "11952925758", dataAtual);
         alunoRepository.save(aluno1);
         
-        Aluno aluno2 = new Aluno("Vanessa", endereco, "22502104890", "11985182653");
+        Aluno aluno2 = new Aluno("Vanessa", endereco, "22502104890", "11985182653", dataAtual);
         alunoRepository.save(aluno2);
 
         Mensalidade mensalidade1 = new Mensalidade();

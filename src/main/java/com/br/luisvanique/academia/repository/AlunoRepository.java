@@ -12,13 +12,9 @@ import jakarta.validation.constraints.NotBlank;
 
 @Repository
 public interface AlunoRepository extends JpaRepository<Aluno, Long>{
-	
-	boolean existsByCpf(@NotBlank @CPF String cpf);
 
 	boolean existsByTelefone(@NotBlank String telefone);
 	
 	Optional<Aluno> findByTelefone(@NotBlank String telefone);
-	
-	Optional<Aluno> findByCpf(@NotBlank String cpf);
 	
 }

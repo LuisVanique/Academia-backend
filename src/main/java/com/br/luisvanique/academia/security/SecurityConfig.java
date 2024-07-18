@@ -16,10 +16,10 @@ public class SecurityConfig {
 	SecurityFilterChain chain(HttpSecurity http) throws Exception {
 		http.headers(headers -> headers.frameOptions(frame -> frame.disable()));
 		http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+		http.cors(cors -> cors.disable());
 		http.authorizeHttpRequests(request
 				-> request.anyRequest().permitAll()).
-		csrf(csrf -> csrf.disable()).cors(cors -> cors.disable());
-		
+		csrf(csrf -> csrf.disable());
 		return http.build();
 	}
 	

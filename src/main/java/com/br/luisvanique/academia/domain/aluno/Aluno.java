@@ -41,8 +41,8 @@ public class Aluno implements Serializable{
 	@Embedded
 	private Endereco endereco;
 
-	@Column(name = "CPF", unique = true)
-	private String cpf;
+	@Column(name = "DATA_NASCIMENTO", unique = false)
+	private LocalDate dataNascimento;
 	
 	@Column(name = "TELEFONE", unique = true)
 	private String telefone;
@@ -56,10 +56,10 @@ public class Aluno implements Serializable{
 	@OneToMany(mappedBy = "aluno")
 	private List<Mensalidade> mensalidades;
 	
-	public Aluno(String nome, Endereco endereco ,String cpf, String telefone) {
+	public Aluno(String nome, Endereco endereco ,String cpf, String telefone, LocalDate dataNascimento) {
 		this.nome = nome;
 		this.endereco = endereco;
-		this.cpf = cpf;
+		this.dataNascimento = dataNascimento;
 		this.telefone = telefone;
 		this.dataCriacao = LocalDate.now();
 		this.ativo = "S";
@@ -68,7 +68,7 @@ public class Aluno implements Serializable{
 	public Aluno(CreateAlunoDTO dto) {
 		this.nome = dto.nome();
 		this.endereco = dto.endereco().toEndereco();
-		this.cpf = dto.cpf();
+		this.dataNascimento = dto.dataNascimento();
 		this.telefone = dto.telefone();
 		this.dataCriacao = LocalDate.now();
 		this.ativo = "S";

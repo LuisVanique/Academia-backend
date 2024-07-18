@@ -1,5 +1,7 @@
 package com.br.luisvanique.academia.domain.aluno.dto;
 
+import java.time.LocalDate;
+
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.br.luisvanique.academia.domain.aluno.Aluno;
@@ -17,10 +19,9 @@ public record CreateAlunoDTO(
 		@Valid
 		EnderecoDTO endereco,
 		
-		@CPF
-		@NotNull(message = "Campo CPF obrigatorio!")
-		@NotBlank(message = "Campo CPF nao pode estar vazio")
-		String cpf,
+		@NotNull(message = "Campo Data Nascimento obrigatorio!")
+		@NotBlank(message = "Campo Data Nascimento nao pode estar vazio")
+		LocalDate dataNascimento,
 		
 		@NotNull(message = "Campo TELEFONE obrigatorio!")
 		@NotBlank(message = "Campo TELEFONE nao pode estar vazio")
@@ -29,7 +30,7 @@ public record CreateAlunoDTO(
 	
 	public CreateAlunoDTO(Aluno aluno) {
 		this(aluno.getNome(), new EnderecoDTO(aluno.getEndereco()),
-				aluno.getCpf(), aluno.getTelefone());
+				aluno.getDataNascimento(), aluno.getTelefone());
 	}
 
 

@@ -12,7 +12,7 @@ public record AlunoDTO(
 	
 		EnderecoDTO endereco,
 		
-		String cpf,
+		LocalDate dataNascimento,
 		
 		String telefone,
 		
@@ -23,7 +23,7 @@ public record AlunoDTO(
 	
 	public AlunoDTO(Aluno aluno) {
 		this(aluno.getId(), aluno.getNome(), new EnderecoDTO(aluno.getEndereco()),
-				aluno.getCpf(), aluno.getTelefone(), aluno.getDataCriacao(), aluno.getAtivo());
+				aluno.getDataNascimento(), aluno.getTelefone(), aluno.getDataCriacao(), aluno.getAtivo());
 	}
 
 
