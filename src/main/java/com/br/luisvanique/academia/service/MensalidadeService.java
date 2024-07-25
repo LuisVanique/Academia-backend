@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.br.luisvanique.academia.domain.aluno.Aluno;
+import com.br.luisvanique.academia.domain.aluno.ConstantesAluno;
 import com.br.luisvanique.academia.domain.enums.StatusPagamento;
 import com.br.luisvanique.academia.domain.mensalidade.Mensalidade;
 import com.br.luisvanique.academia.domain.mensalidade.dto.AprovarPagamentoDTO;
@@ -35,18 +36,17 @@ public class MensalidadeService {
 	
 	private List<MensalidadeStatusPagoValidator> mensalidadeValidators;
 	
-	private final String alunoInativo = "N";
 	
 	public MensalidadeService(List<MensalidadeStatusPagoValidator> mensalidadeValidators) {
 		this.mensalidadeValidators = mensalidadeValidators;
 	}
 
 	
-	@Scheduled(cron = "0 * * * * ?")
+	@Scheduled(cron = "0 0 0 20 * ?")
 	public void gerarMensalidade() {
 		List<Aluno> alunos = alunoRepository.findAll();
 		for(Aluno aluno : alunos) {
-			if(aluno.getAtivo().equals(alunoInativo)) {
+			if(aluno.getAtivo().equals(ConstantesAluno.alunoInativo)) {
 				continue;
 			}
 			Mensalidade mensalidade = new Mensalidade();
@@ -59,10 +59,28 @@ public class MensalidadeService {
 			mensalidade.setStatus(StatusPagamento.PENDENTE.getCodigo());
 			mensalidadeRepository.save(mensalidade);
 		}
+		
+		atualizarMensalidadesVencidas();
+		inativarAlunosComMensalidadesVencidas();
 	}
 
 	public List<Mensalidade> findByFiltroStatus(Integer status) {
-		return mensalidadeRepository.findByFiltrosStatus(status);
+		if(status != null) {
+			return mensalidadeRepository.findByFiltrosStatus(status);
+		}
+		return mensalidadeRepository.findAll();
+	}
+	
+	private void atualizarMensalidadesVencidas() {
+	    List<Mensalidade> mensalidades = mensalidadeRepository.findAll();
+	    LocalDate hoje = LocalDate.now();
+	    
+	    for (Mensalidade mensalidade : mensalidades) {
+	        if (mensalidade.getDataVencimento().isBefore(hoje) && mensalidade.getStatus() == StatusPagamento.PENDENTE.getCodigo()) {
+	            mensalidade.setStatus(StatusPagamento.VENCIDA.getCodigo());
+	            mensalidadeRepository.save(mensalidade);
+	        }
+	    }
 	}
 	
 	public void aprovarPagamento(Long id, @Valid AprovarPagamentoDTO status) {
@@ -86,6 +104,35 @@ public class MensalidadeService {
         mensalidades.add(salvarMensalidade);
         mensalidadeRepository.saveAll(mensalidades);
 		return mensalidades;
+	}
+
+
+	public List<Mensalidade> findAll() {
+		return mensalidadeRepository.findAll();
+	}
+	
+	private Integer contaMensalidadesVencidas(Aluno aluno) {
+		List<Mensalidade> mensalidades = mensalidadeRepository.findByAluno(aluno);
+		int count = 0;
+		
+		 for (Mensalidade mensalidade : mensalidades) {
+		        if (mensalidade.getStatus() == StatusPagamento.VENCIDA.getCodigo()) {
+		            count++;
+		        }
+		    }
+		return count;
+	}
+	
+	@Transactional
+	private void inativarAlunosComMensalidadesVencidas() {
+	    List<Aluno> alunos = alunoRepository.findAll();
+	    
+	    for (Aluno aluno : alunos) {
+	        if (contaMensalidadesVencidas(aluno) >= 3) {
+	            aluno.setAtivo(ConstantesAluno.alunoInativo);
+	            alunoRepository.save(aluno);
+	        }
+	    }
 	}
 	
 	

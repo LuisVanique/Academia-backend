@@ -19,8 +19,7 @@ public record CreateAlunoDTO(
 		@Valid
 		EnderecoDTO endereco,
 		
-		@NotNull(message = "Campo Data Nascimento obrigatorio!")
-		@NotBlank(message = "Campo Data Nascimento nao pode estar vazio")
+		@NotNull(message = "Campo Data Nascimento é obrigatorio!")
 		LocalDate dataNascimento,
 		
 		@NotNull(message = "Campo TELEFONE obrigatorio!")

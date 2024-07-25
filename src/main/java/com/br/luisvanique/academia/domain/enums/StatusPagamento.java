@@ -6,7 +6,10 @@ import lombok.Getter;
 
 @Getter
 public enum StatusPagamento {
-	VENCIDA(3, "VENCIDA"), PAGA(2, "PAGA"), PENDENTE(1, "PENDENTE");
+	ANULADA(4, "ANULADA"),
+	VENCIDA(3, "VENCIDA"), 
+	PAGA(2, "PAGA"), 
+	PENDENTE(1, "PENDENTE");
 	
 	@Id
 	@Column(name = "ID")

@@ -13,7 +13,10 @@ import com.br.luisvanique.academia.domain.aluno.dto.CreateAlunoDTO;
 import com.br.luisvanique.academia.domain.aluno.dto.UpdateAlunoDTO;
 import com.br.luisvanique.academia.domain.aluno.exception.ObjectNotFoundException;
 import com.br.luisvanique.academia.domain.aluno.validations.UserValidator;
+import com.br.luisvanique.academia.domain.enums.StatusPagamento;
+import com.br.luisvanique.academia.domain.mensalidade.Mensalidade;
 import com.br.luisvanique.academia.repository.AlunoRepository;
+import com.br.luisvanique.academia.repository.MensalidadeRepository;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -25,6 +28,9 @@ public class AlunoService {
 	
 	@Autowired
 	private MensalidadeService mensalidadeService;
+	
+	@Autowired
+	private MensalidadeRepository mensalidadeRepository;
 	
 	private final List<UserValidator> userValidator;
 	
@@ -66,6 +72,15 @@ public class AlunoService {
 	public void reativarAluno(Long id) {
 		Aluno aluno = findById(id);
 		aluno.setAtivo("S");
+		List<Mensalidade> mensalidadesAluno 
+			= mensalidadeRepository.findByAluno(aluno);
+		
+		for(Mensalidade mensalidade : mensalidadesAluno) {
+			if(mensalidade.getStatus() == StatusPagamento.VENCIDA.getCodigo()) {
+				mensalidade.setStatus(StatusPagamento.ANULADA.getCodigo());
+				mensalidadeRepository.save(mensalidade);
+			}
+		}
 		alunoRepository.save(aluno);
 	}
 
