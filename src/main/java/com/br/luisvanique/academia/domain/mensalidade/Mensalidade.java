@@ -20,7 +20,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "mensalidades")
+@Table(name = "TB_MENSALIDADES")
 public class Mensalidade {
 	
 	@Id
