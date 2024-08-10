@@ -32,7 +32,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 	    return httpSecurity.csrf(csrf -> csrf.disable())
 	            .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-	            .cors(withDefaults()) // Inclua essa linha para habilitar CORS
+	            .cors(withDefaults())
 	            .authorizeHttpRequests(authorizeHttpRequests -> 
 	                    authorizeHttpRequests.requestMatchers(HttpMethod.POST, "/login").permitAll()
 	                    .requestMatchers(HttpMethod.POST, "/instrutor").permitAll()
