@@ -37,6 +37,13 @@ public class ControllerAdviceHandler {
 				body(new MessageErrorDTO(ex.getMessage()));
 	}
 	
+	@ExceptionHandler(EmailJaCadastradoException.class)
+	public ResponseEntity<MessageErrorDTO> emailJaCadastradoHandle(EmailJaCadastradoException ex){
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+				.contentType(MediaType.APPLICATION_JSON).
+				body(new MessageErrorDTO(ex.getMessage()));
+	}
+	
 	@ExceptionHandler(TelefoneJaRegistradoException.class)
 	public ResponseEntity<MessageErrorDTO> handleTelefoneCadastrado(TelefoneJaRegistradoException ex){
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).contentType(MediaType.APPLICATION_JSON)

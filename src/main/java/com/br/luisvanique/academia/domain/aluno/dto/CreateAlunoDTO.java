@@ -2,8 +2,6 @@ package com.br.luisvanique.academia.domain.aluno.dto;
 
 import java.time.LocalDate;
 
-import org.hibernate.validator.constraints.br.CPF;
-
 import com.br.luisvanique.academia.domain.aluno.Aluno;
 
 import jakarta.validation.Valid;
