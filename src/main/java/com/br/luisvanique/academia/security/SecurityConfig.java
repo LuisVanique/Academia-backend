@@ -19,20 +19,22 @@ public class SecurityConfig {
 	private SecurityFilter securityFilter;
 
 	public SecurityConfig(SecurityFilter securityFilter) {
-        this.securityFilter = securityFilter;
-    }
+		this.securityFilter = securityFilter;
+	}
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-		return httpSecurity.csrf(csrf -> csrf.disable())
+
+		httpSecurity.cors(cors -> cors.disable());
+		httpSecurity.csrf(csrf -> csrf.disable())
 				.sessionManagement(
 						sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(
-						authorizeHttpRequests -> authorizeHttpRequests.requestMatchers(HttpMethod.POST, "/login")
-						.permitAll().requestMatchers(HttpMethod.POST, "/instrutor").permitAll().anyRequest().authenticated()
-						
-								)
-				.addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class).build();
+				.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
+						.requestMatchers(HttpMethod.POST, "/login").permitAll()
+						.requestMatchers(HttpMethod.POST, "/instrutor").permitAll().anyRequest().authenticated()
+
+				).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
+		return httpSecurity.build();
 	}
 
 	@Bean
