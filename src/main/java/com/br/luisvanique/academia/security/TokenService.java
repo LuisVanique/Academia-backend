@@ -40,7 +40,10 @@ public class TokenService {
 	}
 
 	private Instant generateExpirationDate() {
-	    return ZonedDateTime.now(ZoneId.of("America/Sao_Paulo")).plusHours(2).toInstant();
+	    return ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"))
+	                        .plusHours(2)
+	                        .withZoneSameInstant(ZoneOffset.UTC) // Converte para UTC
+	                        .toInstant();
 	}
 
 }
