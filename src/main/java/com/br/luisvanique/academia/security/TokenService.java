@@ -24,11 +24,13 @@ public class TokenService {
 	private String issuer;
 
 	public String generateToken(Instrutor user) {
-		return JWT.create().withIssuer(issuer).withSubject(user.getEmail()) // Identifica o usuário
-				.withClaim("id", user.getId()) // Podemos adicionar qualquer informação relevante usando o withClaim
-				.withClaim("nome", user.getNome()).withClaim("perfil", user.getPerfil().toString())
-				.withExpiresAt(generateExpirationDate()) // É importante definir um tempo de expiração do token
-				.sign(Algorithm.HMAC256(secret));
+	    return JWT.create()
+	              .withIssuer(issuer)
+	              .withSubject(user.getEmail()) // Identifica o usuário
+	              .withClaim("id", user.getId()) // Podemos adicionar qualquer informação relevante usando o withClaim
+	              .withClaim("nome", user.getNome())
+	              .withClaim("perfil", user.getPerfil().toString())
+	              .sign(Algorithm.HMAC256(secret)); // Sem data de expiração
 	}
 
 	public String extractSubject(String token) {
@@ -38,10 +40,6 @@ public class TokenService {
 		var decodedJWT = verifier.verify(token); // Valida o token
 
 		return decodedJWT.getSubject(); // Pega o subject
-	}
-
-	private Instant generateExpirationDate() {
-	    return Instant.now().plus(2, ChronoUnit.HOURS);
 	}
 
 }
