@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -40,10 +41,7 @@ public class TokenService {
 	}
 
 	private Instant generateExpirationDate() {
-	    return ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"))
-	                        .plusHours(2)
-	                        .withZoneSameInstant(ZoneOffset.UTC) // Converte para UTC
-	                        .toInstant();
+	    return Instant.now().plus(2, ChronoUnit.HOURS);
 	}
 
 }
