@@ -59,6 +59,7 @@ public class AlunoService {
 	public void update(Long id, @Valid UpdateAlunoDTO dto) {
 		userValidator.forEach(validator -> validator.validator(dto, id));
 		Aluno alunoAtual = findById(id);
+		BeanUtils.copyProperties(dto.endereco(), alunoAtual.getEndereco());
 		BeanUtils.copyProperties(dto, alunoAtual, "id");
 		alunoRepository.save(alunoAtual);
 	}

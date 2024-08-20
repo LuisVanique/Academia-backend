@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.br.luisvanique.academia.domain.Endereco;
 import com.br.luisvanique.academia.domain.aluno.dto.CreateAlunoDTO;
+import com.br.luisvanique.academia.domain.aluno.dto.UpdateAlunoDTO;
 import com.br.luisvanique.academia.domain.mensalidade.Mensalidade;
 
 import jakarta.persistence.Column;
@@ -68,6 +69,15 @@ public class Aluno implements Serializable{
 	}
 	
 	public Aluno(CreateAlunoDTO dto) {
+		this.nome = dto.nome();
+		this.endereco = dto.endereco().toEndereco();
+		this.dataNascimento = dto.dataNascimento();
+		this.telefone = dto.telefone();
+		this.dataCriacao = LocalDate.now();
+		this.ativo = "S";
+	}
+	
+	public Aluno(UpdateAlunoDTO dto) {
 		this.nome = dto.nome();
 		this.endereco = dto.endereco().toEndereco();
 		this.dataNascimento = dto.dataNascimento();
