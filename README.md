@@ -36,6 +36,34 @@ Em academias tradicionais, o instrutor precisa consultar manualmente folhas de p
 
 ---
 
+## Rodando com Docker (recomendado)
+
+A forma mais simples de subir a aplicação completa (app + banco) sem precisar instalar Java, Maven ou MySQL localmente.
+
+**Pré-requisito:** [Docker](https://www.docker.com/) instalado.
+
+```bash
+docker compose up --build
+```
+
+Isso irá:
+1. Subir um container MySQL 8 com o banco `academiaDB` já criado
+2. Compilar a aplicação e subir o container da API
+
+A API ficará disponível em `http://localhost:8080`.
+
+Para parar e remover os containers:
+```bash
+docker compose down
+```
+
+Para parar e também apagar os dados do banco:
+```bash
+docker compose down -v
+```
+
+---
+
 ## Configuração do Banco de Dados
 
 ### Perfil de desenvolvimento (recomendado para rodar localmente)
@@ -113,7 +141,7 @@ As propriedades JWT podem ser sobrescritas via variáveis de ambiente:
 | Perfil | Banco | Uso |
 |---|---|---|
 | `prod` | MySQL remoto (Railway) | Produção |
-| `dev` | MySQL local (`academiaDB`) | Desenvolvimento local |
+| `dev` | MySQL local ou Docker (`academiaDB`) | Desenvolvimento local |
 | `test` | H2 in-memory | Testes automatizados |
 
 ---
